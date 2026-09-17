@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1083693095672",
+    "project_id": "estudomais-84730",
+    "storage_bucket": "estudomais-84730.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083693095672:android:82a9a3bb5916b597f0b90d",
+        "android_client_info": {
+          "package_name": "com.uniceplac.estudomais"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzel7BGfd5MQ1_L_SOKLKAZkvLT5jioNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
