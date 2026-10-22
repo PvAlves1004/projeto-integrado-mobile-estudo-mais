@@ -29,3 +29,6 @@ Thumbs.db
 
 # Firebase (não versionar; enviar aos colegas por fora)
 google-services.json
+
+# Ferramentas locais
+.claude/
