@@ -11,7 +11,7 @@ public class Usuario {
     private boolean ativo;
     private String criadoEm;
 
-    // Construtor vazio obrigatório para o Firestore reconstruir o objeto
+    //construtor vazio usado para o firestore reconstruir o objeto
     public Usuario() {}
 
     public Usuario(String nomeCompleto, String email, String telefone,

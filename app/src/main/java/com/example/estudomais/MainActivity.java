@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
     private Button btnEnter;
-    private TextView tvRegister;
+    private TextView tvRegister, tvForgotPassword;
 
     private FirebaseAuth auth;
 
@@ -26,15 +26,33 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        editEmail    = findViewById(R.id.user);
-        editPassword = findViewById(R.id.password);
-        btnEnter     = findViewById(R.id.enterButtton);
-        tvRegister   = findViewById(R.id.registerButton);
+        editEmail        = findViewById(R.id.user);
+        editPassword     = findViewById(R.id.password);
+        btnEnter         = findViewById(R.id.enterButtton);
+        tvRegister       = findViewById(R.id.registerButton);
+        tvForgotPassword = findViewById(R.id.forgotPassword);
 
         btnEnter.setOnClickListener(v -> realizarLogin());
 
         tvRegister.setOnClickListener(v ->
                 startActivity(new Intent(this, CadastroActivity.class)));
+
+        tvForgotPassword.setOnClickListener(v -> enviarRedefinicaoSenha());
+    }
+
+    private void enviarRedefinicaoSenha() {
+        String email = editEmail.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Digite seu e-mail para redefinir a senha", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        auth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(this, "E-mail de redefinição enviado!", Toast.LENGTH_LONG).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "E-mail não encontrado", Toast.LENGTH_SHORT).show());
     }
 
     private void realizarLogin() {
@@ -50,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(result -> {
-                    Toast.makeText(this, "Login realizado!", Toast.LENGTH_SHORT).show();
-                    // TODO: navegar para a tela principal do app
-                    btnEnter.setEnabled(true);
+                    startActivity(new Intent(this, HomeActivity.class));
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "E-mail ou senha incorretos", Toast.LENGTH_SHORT).show();
