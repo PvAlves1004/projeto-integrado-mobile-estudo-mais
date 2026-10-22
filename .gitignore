@@ -1,17 +1,34 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android Studio
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+captures/
+.externalNativeBuild/
+.cxx/
+.navigation/
+
+# Configuração local
 local.properties
+
+# Binários e assinatura
+*.apk
+*.aab
+*.ap_
+*.dex
+*.keystore
+*.jks
+
+# Logs e sistema
+*.log
+.DS_Store
+Thumbs.db
+
+# Firebase (não versionar; enviar aos colegas por fora)
 google-services.json
-.claude
+
+# Ferramentas locais
+.claude/
