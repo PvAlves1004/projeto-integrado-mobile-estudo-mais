@@ -1,5 +1,9 @@
 package com.example.estudomais;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class Usuario {
 
     private String nomeCompleto;
@@ -9,7 +13,8 @@ public class Usuario {
     private String matricula;
     private String perfilId;   // "PROFESSOR", "ALUNO" ou "RESPONSAVEL"
     private boolean ativo;
-    private String criadoEm;
+    @ServerTimestamp
+    private Date criadoEm;
 
     //construtor vazio usado para o firestore reconstruir o objeto
     public Usuario() {}
@@ -23,8 +28,8 @@ public class Usuario {
         this.matricula = matricula;
         this.perfilId = perfilId;
         this.ativo = true;
-        this.criadoEm = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                java.util.Locale.getDefault()).format(new java.util.Date());
+
+
     }
 
     public String getNomeCompleto() { return nomeCompleto; }
@@ -48,6 +53,6 @@ public class Usuario {
     public boolean isAtivo() { return ativo; }
     public void setAtivo(boolean ativo) { this.ativo = ativo; }
 
-    public String getCriadoEm() { return criadoEm; }
-    public void setCriadoEm(String criadoEm) { this.criadoEm = criadoEm; }
+    public Date getCriadoEm() { return criadoEm; }
+    public void setCriadoEm(Date criadoEm) { this.criadoEm = criadoEm; }
 }

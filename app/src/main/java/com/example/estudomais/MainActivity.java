@@ -15,30 +15,60 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText editEmail, editPassword;
     private Button btnEnter;
-    private TextView tvRegister, tvForgotPassword;
-
+    private TextView tvForgotPassword;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
 
         auth = FirebaseAuth.getInstance();
 
         editEmail        = findViewById(R.id.user);
         editPassword     = findViewById(R.id.password);
         btnEnter         = findViewById(R.id.enterButtton);
-        tvRegister       = findViewById(R.id.registerButton);
         tvForgotPassword = findViewById(R.id.forgotPassword);
 
         btnEnter.setOnClickListener(v -> realizarLogin());
-
-        tvRegister.setOnClickListener(v ->
-                startActivity(new Intent(this, CadastroActivity.class)));
-
         tvForgotPassword.setOnClickListener(v -> enviarRedefinicaoSenha());
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser usuarioAtual = auth.getCurrentUser();
+        if (usuarioAtual != null) {
+            verificarPerfilEDirecionar(usuarioAtual.getUid());
+        }
+    }
+
+    private void verificarPerfilEDirecionar(String uid) {
+        FirebaseFirestore.getInstance()
+                .collection("usuarios").document(uid).get()
+                .addOnSuccessListener(doc -> {
+                    // TODO 1: se o documento não existir (doc.exists()), chame negarAcesso() e return
+
+                    // TODO 2: converta o documento: Usuario usuario = doc.toObject(Usuario.class);
+
+                    // TODO 3: se o usuário não estiver ativo, chame negarAcesso() e return
+
+                    // TODO 4: switch (usuario.getPerfilId()) com um case para
+                    //         "ADMIN", "PROFESSOR" e "ALUNO", abrindo a Home certa.
+                    //         default: negarAcesso()
+                    //         Depois de abrir a tela: finish()
+                })
+                .addOnFailureListener(e -> {
+                    // TODO 5: Toast "Erro de conexão" e reabilitar o btnEnter
+                });
+    }
+
+    private void negarAcesso() {
+        // TODO: auth.signOut(), Toast "Acesso não autorizado", btnEnter.setEnabled(true)
+    }
+
+
+
 
     private void enviarRedefinicaoSenha() {
         String email = editEmail.getText().toString().trim();
@@ -68,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnSuccessListener(result -> {
-                    startActivity(new Intent(this, HomeActivity.class));
+                    verificarPerfilEDirecionar(result.getUser().getUid());;
                     finish();
                 })
                 .addOnFailureListener(e -> {
