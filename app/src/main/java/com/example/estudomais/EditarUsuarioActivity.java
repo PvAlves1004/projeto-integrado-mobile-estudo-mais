@@ -70,8 +70,7 @@ public class EditarUsuarioActivity extends AppCompatActivity {
                     btnToggleAtivo.setBackgroundTintList(
                             androidx.core.content.res.ResourcesCompat.getColorStateList(
                                     getResources(),
-                                    ativoAtual ? android.R.color.holo_red_dark
-                                               : android.R.color.holo_green_dark,
+                                    ativoAtual ? R.color.danger : R.color.success,
                                     null));
                 });
     }

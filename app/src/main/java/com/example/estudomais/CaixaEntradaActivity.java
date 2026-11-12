@@ -13,7 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
+
+import java.util.Collections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,6 @@ public class CaixaEntradaActivity extends AppCompatActivity {
 
         listenerRegistration = db.collection("notificacoes")
                 .whereArrayContains("destinatarios", perfilUsuario)
-                .orderBy("criadaEm", Query.Direction.DESCENDING)
                 .addSnapshotListener((snapshot, error) -> {
                     if (error != null) {
                         Toast.makeText(this, "Erro ao carregar notificações",
@@ -85,6 +85,13 @@ public class CaixaEntradaActivity extends AppCompatActivity {
                             }
                         }
                     }
+
+                    // Ordenar por data decrescente em memória (evita índice composto no Firestore)
+                    Collections.sort(lista, (a, b) -> {
+                        if (a.getCriadaEm() == null) return 1;
+                        if (b.getCriadaEm() == null) return -1;
+                        return b.getCriadaEm().compareTo(a.getCriadaEm());
+                    });
 
                     adapter.notifyDataSetChanged();
                     tvVazio.setVisibility(lista.isEmpty() ? View.VISIBLE : View.GONE);

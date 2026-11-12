@@ -1,121 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nome da turma *"
-            android:textSize="12sp"
-            android:textColor="#666666" />
+            android:layout_marginTop="0dp">
 
-        <EditText
-            android:id="@+id/editNomeTurma"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:text="Informações da turma"
+                android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Nome da turma *"
+                app:startIconDrawable="@drawable/ic_school">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editNomeTurma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Disciplina *"
+                app:startIconDrawable="@drawable/ic_description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editDisciplina"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Ano/Série *"
+                app:startIconDrawable="@drawable/ic_calendar"
+                app:helperText="Ex: 1º Ano, 2º Ano">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editSemestre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|textCapWords"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:inputType="text|textCapWords"
-            android:maxLines="1" />
+            android:layout_marginTop="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Disciplina *"
-            android:textSize="12sp"
-            android:textColor="#666666" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        <EditText
-            android:id="@+id/editDisciplina"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:inputType="text|textCapWords"
-            android:maxLines="1" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="8dp"
+                android:text="Professores"
+                android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ano/Série (ex: 1º Ano, 2º Ano) *"
-            android:textSize="12sp"
-            android:textColor="#666666" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSelecionarProfessores"
+                style="@style/Widget.EstudoMais.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="Selecionar professores"
+                app:icon="@drawable/ic_person" />
 
-        <EditText
-            android:id="@+id/editSemestre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:inputType="text|textCapWords"
-            android:maxLines="1" />
+            <TextView
+                android:id="@+id/tvProfessoresSelecionados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="0dp"
+                android:drawablePadding="6dp"
+                android:text="Nenhum selecionado"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="PROFESSORES"
-            android:textSize="12sp"
-            android:textColor="#666666"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="Alunos"
+                android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
 
-        <Button
-            android:id="@+id/btnSelecionarProfessores"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#E0E0E0"
-            android:text="Selecionar professores"
-            android:textColor="#212121" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSelecionarAlunos"
+                style="@style/Widget.EstudoMais.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="Selecionar alunos"
+                app:icon="@drawable/ic_group" />
 
-        <TextView
-            android:id="@+id/tvProfessoresSelecionados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Nenhum selecionado"
-            android:textColor="#999999"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvAlunosSelecionados"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="0dp"
+                android:drawablePadding="6dp"
+                android:text="Nenhum selecionado"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ALUNOS"
-            android:textSize="12sp"
-            android:textColor="#666666"
-            android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <Button
-            android:id="@+id/btnSelecionarAlunos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#E0E0E0"
-            android:text="Selecionar alunos"
-            android:textColor="#212121" />
-
-        <TextView
-            android:id="@+id/tvAlunosSelecionados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="4dp"
-            android:text="Nenhum selecionado"
-            android:textColor="#999999"
-            android:textSize="13sp" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSalvarTurma"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#008080"
-            android:text="Criar Turma"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:layout_marginTop="24dp"
+            android:text="Criar turma"
+            app:icon="@drawable/ic_add"
+            app:iconGravity="textStart" />
 
     </LinearLayout>
-
 </ScrollView>

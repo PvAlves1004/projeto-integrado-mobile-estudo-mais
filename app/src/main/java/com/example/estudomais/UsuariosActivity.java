@@ -81,7 +81,6 @@ public class UsuariosActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        carregarUsuarios();
     }
 
     @Override public boolean onSupportNavigateUp() { finish(); return true; }

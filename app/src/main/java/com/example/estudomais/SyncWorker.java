@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Constraints;
 import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +48,19 @@ public class SyncWorker extends Worker {
                 .build();
         WorkManager.getInstance(ctx).enqueueUniquePeriodicWork(
                 WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, req);
+    }
+
+    public static void rodarAgora(Context ctx) {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        OneTimeWorkRequest req = new OneTimeWorkRequest.Builder(SyncWorker.class)
+                .setConstraints(constraints)
+                .build();
+        WorkManager.getInstance(ctx).enqueueUniqueWork(
+                WORK_NAME + "_agora",
+                ExistingWorkPolicy.REPLACE,
+                req);
     }
 
     @NonNull
@@ -125,9 +140,34 @@ public class SyncWorker extends Worker {
                 }
             }
 
+            // Check for unread professor notifications and fire system tray notification
+            Set<String> notifProfVistas  = prefs.getStringSet("notif_prof_" + uid, new HashSet<>());
+            Set<String> notifProfUpdate  = new HashSet<>(notifProfVistas);
+
+            QuerySnapshot notifSnap = Tasks.await(
+                    db.collection("notificacoes")
+                            .whereArrayContains("destinatarios", "ALUNO")
+                            .get());
+
+            for (DocumentSnapshot notifDoc : notifSnap.getDocuments()) {
+                String notifDocId = notifDoc.getId();
+                if (notifProfVistas.contains(notifDocId)) continue;
+
+                Notificacao n = notifDoc.toObject(Notificacao.class);
+                if (n == null) continue;
+
+                List<String> lidaPor = n.getLidaPor();
+                if (lidaPor != null && lidaPor.contains(uid)) continue; // already read in-app
+
+                NotificacaoHelper.dispararMensagem(getApplicationContext(),
+                        notifDocId.hashCode(), n.getTitulo(), n.getMensagem(), "ALUNO");
+                notifProfUpdate.add(notifDocId);
+            }
+
             prefs.edit()
                     .putStringSet("notif_novas_" + uid, notificadosNovasUpdate)
                     .putStringSet("lembrete_ag_" + uid, lembreteUpdate)
+                    .putStringSet("notif_prof_" + uid, notifProfUpdate)
                     .apply();
 
             return Result.success();
@@ -140,10 +180,13 @@ public class SyncWorker extends Worker {
                                    String titulo, Date prazo, boolean valeNota) {
         long agora = System.currentTimeMillis();
 
-        // Offset list: valeNota → 72h, 24h, 2h; otherwise → 24h, 2h
-        long[] offsets = valeNota
-                ? new long[]{72 * 3600_000L, 24 * 3600_000L, 2 * 3600_000L}
-                : new long[]{24 * 3600_000L, 2 * 3600_000L};
+        long[] offsets = {
+                72 * 3600_000L,
+                48 * 3600_000L,
+                24 * 3600_000L,
+                12 * 3600_000L,
+                 6 * 3600_000L
+        };
 
         for (long offset : offsets) {
             long fireAt = prazo.getTime() - offset;
@@ -153,8 +196,12 @@ public class SyncWorker extends Worker {
             long delay = fireAt - agora;
             if (delay <= 0) continue;
 
-            String tipo = offset == 72 * 3600_000L ? "72h"
-                    : offset == 24 * 3600_000L ? "24h" : "2h";
+            String tipo;
+            if      (offset == 72 * 3600_000L) tipo = "72h";
+            else if (offset == 48 * 3600_000L) tipo = "48h";
+            else if (offset == 24 * 3600_000L) tipo = "24h";
+            else if (offset == 12 * 3600_000L) tipo = "12h";
+            else                               tipo = "6h";
 
             Data data = new Data.Builder()
                     .putString("turmaId",   turmaId)
