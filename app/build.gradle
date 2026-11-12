@@ -6,14 +6,12 @@ plugins {
 
 android {
     namespace 'com.example.estudomais'
-    compileSdk {
-        version = release(37)
-    }
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.uniceplac.estudomais"
         minSdk 24
-        targetSdk 37
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
