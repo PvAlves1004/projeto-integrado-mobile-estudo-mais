@@ -6,6 +6,7 @@
 -keep class com.example.estudomais.Usuario { *; }
 -keep class com.example.estudomais.Turma { *; }
 -keep class com.example.estudomais.Tarefa { *; }
+-keep class com.example.estudomais.Notificacao { *; }
 
 # WorkManager
 -keep class androidx.work.** { *; }
