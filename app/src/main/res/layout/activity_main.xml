@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Email:"
+        android:text="E-mail ou matrícula:"
         android:textColor="#000000"
         android:textSize="16sp" />
 
@@ -39,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:background="@drawable/caixa_edittext"
-        android:hint="usuario@teste.com"
-        android:inputType="textEmailAddress"
+        android:hint="usuario@email.com ou matrícula"
+        android:inputType="text"
         android:padding="12dp"
         android:textSize="16sp" />
 
@@ -85,26 +85,5 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="ou"
-        android:textAlignment="center"
-        android:textColor="#999999"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Cadastrar-se"
-        android:textAlignment="center"
-        android:textColor="#E87722"
-        android:textSize="16sp"
-        android:textStyle="bold" />
 
 </LinearLayout>
