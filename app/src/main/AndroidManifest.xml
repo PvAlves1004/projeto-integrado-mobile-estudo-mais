@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,19 +14,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CadastroActivity"/>
-        <activity android:name=".HomeActivity"/>
+
+        <!-- Auth -->
+        <activity android:name=".CadastroActivity" />
+        <activity android:name=".HomeActivity" />
+
+        <!-- Admin -->
+        <activity android:name=".UsuariosActivity" />
+        <activity android:name=".EditarUsuarioActivity" />
+        <activity android:name=".TurmasActivity" />
+        <activity android:name=".CriarTurmaActivity" />
+
+        <!-- Professor -->
+        <activity android:name=".TarefasActivity" />
+        <activity android:name=".CriarEditarTarefaActivity" />
+        <activity android:name=".CalendarioActivity" />
+
+        <!-- Aluno -->
+        <activity android:name=".ListaTarefasActivity" />
+        <activity android:name=".DetalheTarefaActivity" />
+
+        <!-- FCM token sync -->
+        <service
+            android:name=".FCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Boot receiver to re-schedule WorkManager after reboot (RNF11) -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

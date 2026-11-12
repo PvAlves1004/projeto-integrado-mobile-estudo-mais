@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título *"
+            android:textSize="12sp"
+            android:textColor="#666666" />
+
+        <EditText
+            android:id="@+id/editTituloTarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:inputType="text|textCapSentences"
+            android:maxLines="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrição"
+            android:textSize="12sp"
+            android:textColor="#666666" />
+
+        <EditText
+            android:id="@+id/editDescricaoTarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="top"
+            android:inputType="textMultiLine|textCapSentences"
+            android:lines="4"
+            android:maxLines="8"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prazo *"
+            android:textSize="12sp"
+            android:textColor="#666666" />
+
+        <Button
+            android:id="@+id/btnSelecionarPrazo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#E0E0E0"
+            android:text="Selecionar data e hora"
+            android:textColor="#212121" />
+
+        <TextView
+            android:id="@+id/tvPrazoSelecionado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="-8dp"
+            android:text="Nenhum prazo selecionado"
+            android:textColor="#999999"
+            android:textSize="13sp" />
+
+        <CheckBox
+            android:id="@+id/checkValeNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Vale nota"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nota máxima *"
+            android:textSize="12sp"
+            android:textColor="#666666" />
+
+        <EditText
+            android:id="@+id/editNotaMaxima"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:hint="ex: 10.0"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnSalvarTarefa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#008080"
+            android:text="Salvar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>

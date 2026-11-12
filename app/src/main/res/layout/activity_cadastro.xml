@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Criar conta"
+            android:text="Cadastrar Usuário"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="22sp"
@@ -141,25 +141,6 @@
             android:padding="12dp"
             android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Senha:"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/caixa_edittext"
-            android:hint="••••••"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:textSize="16sp" />
-
         <Button
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
@@ -169,19 +150,6 @@
             android:text="Cadastrar"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/backToLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="Já tenho conta"
-            android:textAlignment="center"
-            android:textColor="#E87722"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 
