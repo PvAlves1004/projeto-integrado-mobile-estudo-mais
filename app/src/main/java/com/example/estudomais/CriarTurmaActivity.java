@@ -13,7 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CriarTurmaActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class CriarTurmaActivity extends AppCompatActivity {
     private Button btnProfessores, btnAlunos, btnSalvar;
 
     private FirebaseFirestore db;
+    private String turmaId = null; // null = create mode, non-null = edit mode
 
     private List<String> listProfIds   = new ArrayList<>();
     private List<String> listProfNomes = new ArrayList<>();
@@ -45,10 +48,11 @@ public class CriarTurmaActivity extends AppCompatActivity {
         btnAlunos      = findViewById(R.id.btnSelecionarAlunos);
         btnSalvar      = findViewById(R.id.btnSalvarTurma);
 
-        db = FirebaseFirestore.getInstance();
+        db      = FirebaseFirestore.getInstance();
+        turmaId = getIntent().getStringExtra("turmaId");
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Nova Turma");
+            getSupportActionBar().setTitle(turmaId != null ? "Editar Turma" : "Nova Turma");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -83,7 +87,37 @@ public class CriarTurmaActivity extends AppCompatActivity {
             }
             selProf = new boolean[listProfIds.size()];
             selAlu  = new boolean[listAluIds.size()];
+
+            if (turmaId != null) carregarDadosTurma();
         });
+    }
+
+    private void carregarDadosTurma() {
+        db.collection("turmas").document(turmaId).get()
+                .addOnSuccessListener(doc -> {
+                    if (!doc.exists()) return;
+                    Turma t = doc.toObject(Turma.class);
+                    if (t == null) return;
+
+                    editNome.setText(t.getNome());
+                    editDisciplina.setText(t.getDisciplina());
+                    editSemestre.setText(t.getSemestre());
+
+                    List<String> profIds = t.getProfessorIds();
+                    for (int i = 0; i < listProfIds.size(); i++) {
+                        if (profIds.contains(listProfIds.get(i))) selProf[i] = true;
+                    }
+                    atualizarTexto(tvProfessores, selProf, listProfNomes);
+
+                    List<String> aluIds = t.getAlunoIds();
+                    for (int i = 0; i < listAluIds.size(); i++) {
+                        if (aluIds.contains(listAluIds.get(i))) selAlu[i] = true;
+                    }
+                    atualizarTexto(tvAlunos, selAlu, listAluNomes);
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(this, "Erro ao carregar turma: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show());
     }
 
     private void abrirDialogProfessores() {
@@ -149,19 +183,40 @@ public class CriarTurmaActivity extends AppCompatActivity {
             if (selAlu[i]) aluIds.add(listAluIds.get(i));
         }
 
-        Turma turma = new Turma(nome, disciplina, semestre);
-        turma.setProfessorIds(profIds);
-        turma.setAlunoIds(aluIds);
-
         btnSalvar.setEnabled(false);
-        db.collection("turmas").add(turma)
-                .addOnSuccessListener(ref -> {
-                    Toast.makeText(this, "Turma criada!", Toast.LENGTH_SHORT).show();
-                    finish();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    btnSalvar.setEnabled(true);
-                });
+
+        if (turmaId != null) {
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("nome", nome);
+            updates.put("disciplina", disciplina);
+            updates.put("semestre", semestre);
+            updates.put("professorIds", profIds);
+            updates.put("alunoIds", aluIds);
+
+            db.collection("turmas").document(turmaId)
+                    .update(updates)
+                    .addOnSuccessListener(v -> {
+                        Toast.makeText(this, "Turma atualizada!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        btnSalvar.setEnabled(true);
+                    });
+        } else {
+            Turma turma = new Turma(nome, disciplina, semestre);
+            turma.setProfessorIds(profIds);
+            turma.setAlunoIds(aluIds);
+
+            db.collection("turmas").add(turma)
+                    .addOnSuccessListener(ref -> {
+                        Toast.makeText(this, "Turma criada!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        btnSalvar.setEnabled(true);
+                    });
+        }
     }
 }

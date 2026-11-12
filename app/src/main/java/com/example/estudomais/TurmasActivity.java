@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,12 +50,22 @@ public class TurmasActivity extends AppCompatActivity {
 
         adapter = new TurmaAdapter(lista);
         adapter.setOnClickListener(turma -> {
-            Intent i = new Intent(this, TarefasActivity.class);
-            i.putExtra("turmaId", turma.getId());
-            i.putExtra("turmaNome", turma.getNome());
-            i.putExtra("modoProfessor", modoProfessor);
-            if (modoProfessor) i.putExtra("uid", uid);
-            startActivity(i);
+            if (!modoProfessor) {
+                new AlertDialog.Builder(this)
+                        .setTitle(turma.getNome())
+                        .setItems(new String[]{"Ver Tarefas", "Editar Turma"}, (d, which) -> {
+                            if (which == 0) {
+                                abrirTarefas(turma);
+                            } else {
+                                Intent i = new Intent(this, CriarTurmaActivity.class);
+                                i.putExtra("turmaId", turma.getId());
+                                startActivity(i);
+                            }
+                        })
+                        .show();
+            } else {
+                abrirTarefas(turma);
+            }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -64,11 +75,18 @@ public class TurmasActivity extends AppCompatActivity {
             fabCriar.setOnClickListener(v ->
                     startActivity(new Intent(this, CriarTurmaActivity.class)));
         }
-
-        carregarTurmas();
     }
 
     @Override public boolean onSupportNavigateUp() { finish(); return true; }
+
+    private void abrirTarefas(Turma turma) {
+        Intent i = new Intent(this, TarefasActivity.class);
+        i.putExtra("turmaId", turma.getId());
+        i.putExtra("turmaNome", turma.getNome());
+        i.putExtra("modoProfessor", modoProfessor);
+        if (modoProfessor) i.putExtra("uid", uid);
+        startActivity(i);
+    }
 
     @Override
     protected void onResume() {

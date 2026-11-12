@@ -98,25 +98,25 @@ public class DetalheTarefaActivity extends AppCompatActivity {
     private void atualizarEstado(Timestamp prazo) {
         if (concluida) {
             tvStatus.setText("Concluída");
-            tvStatus.setTextColor(0xFF008080);
+            StatusChip.aplicar(tvStatus, StatusChip.SUCESSO);
             btnToggle.setText("Desmarcar como concluída");
             btnToggle.setBackgroundTintList(
                     androidx.core.content.res.ResourcesCompat.getColorStateList(
-                            getResources(), android.R.color.holo_red_dark, null));
+                            getResources(), R.color.danger, null));
         } else if (prazo != null && prazo.toDate().before(new Date())) {
             tvStatus.setText("Atrasada");
-            tvStatus.setTextColor(0xFFCC0000);
+            StatusChip.aplicar(tvStatus, StatusChip.PERIGO);
             btnToggle.setText("Marcar como concluída");
             btnToggle.setBackgroundTintList(
                     androidx.core.content.res.ResourcesCompat.getColorStateList(
-                            getResources(), android.R.color.holo_green_dark, null));
+                            getResources(), R.color.success, null));
         } else {
             tvStatus.setText("Pendente");
-            tvStatus.setTextColor(0xFFE87722);
+            StatusChip.aplicar(tvStatus, StatusChip.ALERTA);
             btnToggle.setText("Marcar como concluída");
             btnToggle.setBackgroundTintList(
                     androidx.core.content.res.ResourcesCompat.getColorStateList(
-                            getResources(), R.color.teal_700, null));
+                            getResources(), R.color.primary, null));
         }
     }
 

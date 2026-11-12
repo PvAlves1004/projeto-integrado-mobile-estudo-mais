@@ -59,8 +59,10 @@ public class LembreteWorker extends Worker {
         if (tipo == null) return prefix + "Prazo se aproximando!";
         switch (tipo) {
             case "72h": return prefix + "Prazo em 3 dias.";
+            case "48h": return prefix + "Prazo em 2 dias.";
             case "24h": return prefix + "Prazo amanhã!";
-            case "2h":  return prefix + "Prazo em 2 horas!";
+            case "12h": return prefix + "Prazo em 12 horas!";
+            case "6h":  return prefix + "Prazo em 6 horas!";
             default:    return prefix + "Prazo se aproximando!";
         }
     }
