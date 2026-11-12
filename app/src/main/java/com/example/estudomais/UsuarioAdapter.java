@@ -40,11 +40,14 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
         Usuario u = lista.get(position);
         String uid = ids.get(position);
 
-        h.tvNome.setText(u.getNomeCompleto());
+        String nome = u.getNomeCompleto();
+        h.tvNome.setText(nome);
+        h.tvInicial.setText(nome != null && !nome.trim().isEmpty()
+                ? nome.trim().substring(0, 1).toUpperCase() : "?");
         h.tvEmail.setText(u.getEmail());
         h.tvPerfil.setText(u.getPerfilId());
         h.tvStatus.setText(u.isAtivo() ? "Ativo" : "Inativo");
-        h.tvStatus.setTextColor(u.isAtivo() ? 0xFF008080 : 0xFFCC0000);
+        StatusChip.aplicar(h.tvStatus, u.isAtivo() ? StatusChip.SUCESSO : StatusChip.PERIGO);
 
         h.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onClick(u, uid);
@@ -55,7 +58,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     public int getItemCount() { return lista.size(); }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNome, tvEmail, tvPerfil, tvStatus;
+        TextView tvNome, tvEmail, tvPerfil, tvStatus, tvInicial;
 
         ViewHolder(@NonNull View v) {
             super(v);
@@ -63,6 +66,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             tvEmail  = v.findViewById(R.id.tvEmail);
             tvPerfil = v.findViewById(R.id.tvPerfil);
             tvStatus = v.findViewById(R.id.tvStatus);
+            tvInicial = v.findViewById(R.id.tvInicial);
         }
     }
 }

@@ -5,7 +5,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +26,8 @@ public class CriarEditarTarefaActivity extends AppCompatActivity {
     private EditText editTitulo, editDescricao, editNotaMaxima;
     private Button btnPrazo, btnSalvar;
     private TextView tvPrazo;
-    private CheckBox checkValeNota;
+    private CompoundButton checkValeNota;
+    private View tilNotaMaxima;
 
     private FirebaseFirestore db;
     private String turmaId, turmaNome, tarefaId;
@@ -45,6 +46,7 @@ public class CriarEditarTarefaActivity extends AppCompatActivity {
         btnPrazo      = findViewById(R.id.btnSelecionarPrazo);
         tvPrazo       = findViewById(R.id.tvPrazoSelecionado);
         checkValeNota = findViewById(R.id.checkValeNota);
+        tilNotaMaxima = findViewById(R.id.tilNotaMaxima);
         btnSalvar     = findViewById(R.id.btnSalvarTarefa);
 
         db        = FirebaseFirestore.getInstance();
@@ -58,7 +60,7 @@ public class CriarEditarTarefaActivity extends AppCompatActivity {
         }
 
         checkValeNota.setOnCheckedChangeListener((btn, checked) ->
-                editNotaMaxima.setVisibility(checked ? View.VISIBLE : View.GONE));
+                tilNotaMaxima.setVisibility(checked ? View.VISIBLE : View.GONE));
 
         btnPrazo.setOnClickListener(v -> selecionarPrazo());
         btnSalvar.setOnClickListener(v -> salvar());
@@ -91,7 +93,7 @@ public class CriarEditarTarefaActivity extends AppCompatActivity {
                     editDescricao.setText(t.getDescricao());
                     checkValeNota.setChecked(t.isValeNota());
                     if (t.isValeNota()) {
-                        editNotaMaxima.setVisibility(View.VISIBLE);
+                        tilNotaMaxima.setVisibility(View.VISIBLE);
                         if (t.getNotaMaxima() != null)
                             editNotaMaxima.setText(String.valueOf(t.getNotaMaxima()));
                     }

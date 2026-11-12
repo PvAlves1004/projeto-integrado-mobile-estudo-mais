@@ -1,114 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Detalhe da tarefa (aluno) -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvTitulo"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    style="@style/Widget.EstudoMais.Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/border" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Turma"
+                    android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
+
+                <TextView
+                    android:id="@+id/tvTurma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:drawableStart="@drawable/ic_school"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/text_primary"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Prazo"
+                    android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
+
+                <TextView
+                    android:id="@+id/tvPrazo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:drawableStart="@drawable/ic_schedule"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/primary"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/primary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvValeNotaLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Avaliação"
+                    android:textAppearance="@style/TextAppearance.EstudoMais.Overline"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvValeNota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/accent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/accent"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#212121"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="16dp">
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E0E0"
-            android:layout_marginBottom="16dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição"
+                    android:textAppearance="@style/TextAppearance.EstudoMais.Overline" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Turma"
-            android:textSize="11sp"
-            android:textColor="#999999"
-            android:textAllCaps="true" />
+                <TextView
+                    android:id="@+id/tvDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tvTurma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textSize="15sp"
-            android:textColor="#212121" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Prazo"
-            android:textSize="11sp"
-            android:textColor="#999999"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:id="@+id/tvPrazo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textSize="15sp"
-            android:textColor="#008080" />
-
-        <TextView
-            android:id="@+id/tvValeNotaLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Avaliação"
-            android:textSize="11sp"
-            android:textColor="#999999"
-            android:textAllCaps="true"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tvValeNota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:textSize="15sp"
-            android:textColor="#E87722"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descrição"
-            android:textSize="11sp"
-            android:textColor="#999999"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:id="@+id/tvDescricao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:textSize="15sp"
-            android:textColor="#424242" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnToggleConcluida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#008080"
+            android:layout_marginTop="24dp"
             android:text="Marcar como concluída"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-
+            app:icon="@drawable/ic_check"
+            app:iconGravity="textStart" />
     </LinearLayout>
-
 </ScrollView>

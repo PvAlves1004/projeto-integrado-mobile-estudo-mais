@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícone grande e suave para estados vazios -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:width="96dp" android:height="96dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/primary_light" />
+        </shape>
+    </item>
+    <item android:width="44dp" android:height="44dp" android:gravity="center"
+        android:drawable="@drawable/ic_assignment_primary" />
+</layer-list>

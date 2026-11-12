@@ -61,13 +61,13 @@ public class TarefaAdapter extends RecyclerView.Adapter<TarefaAdapter.ViewHolder
                 switch (t.getStatus()) {
                     case "Concluída":
                     case "Entrega confirmada":
-                        h.tvStatus.setTextColor(0xFF008080);
+                        StatusChip.aplicar(h.tvStatus, StatusChip.SUCESSO);
                         break;
                     case "Atrasada":
-                        h.tvStatus.setTextColor(0xFFCC0000);
+                        StatusChip.aplicar(h.tvStatus, StatusChip.PERIGO);
                         break;
                     default:
-                        h.tvStatus.setTextColor(0xFFE87722);
+                        StatusChip.aplicar(h.tvStatus, StatusChip.ALERTA);
                 }
             }
         }

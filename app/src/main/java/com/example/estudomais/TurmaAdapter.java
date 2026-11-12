@@ -40,7 +40,7 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.ViewHolder> 
         h.tvDisciplina.setText(t.getDisciplina());
         h.tvSemestre.setText(t.getSemestre());
         h.tvStatus.setText(t.isAtiva() ? "Ativa" : "Inativa");
-        h.tvStatus.setTextColor(t.isAtiva() ? 0xFF008080 : 0xFFCC0000);
+        StatusChip.aplicar(h.tvStatus, t.isAtiva() ? StatusChip.SUCESSO : StatusChip.PERIGO);
         h.itemView.setOnClickListener(v -> { if (listener != null) listener.onClick(t); });
     }
 

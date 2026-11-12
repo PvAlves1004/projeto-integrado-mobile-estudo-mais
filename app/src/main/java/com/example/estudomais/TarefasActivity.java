@@ -73,7 +73,6 @@ public class TarefasActivity extends AppCompatActivity {
             });
         }
 
-        carregarTarefas();
     }
 
     @Override public boolean onSupportNavigateUp() { finish(); return true; }
